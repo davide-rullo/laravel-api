@@ -43,3 +43,11 @@ Route::get('projects/{project:slug}', function ($slug) {
         ]);
     }
 });
+
+
+Route::get('latest', function () {
+    return response()->json([
+        'success' => true,
+        'result' => Project::with('type', 'technologies')->orderByDesc('id')->take(3)->get()
+    ]);
+});
