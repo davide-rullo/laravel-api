@@ -19,51 +19,22 @@ class TechnologyController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Technology $technology)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Technology $technology)
+    public function show($slug)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Technology $technology)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Technology $technology)
-    {
-        //
+        $tech = Technology::with('projects')->where('slug', $slug)->first();
+        if ($tech) {
+            return response()->json([
+                'success' => true,
+                'result' => $tech
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'result' => 'Page not found'
+            ]);
+        }
     }
 }

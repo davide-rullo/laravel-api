@@ -19,51 +19,19 @@ class TypeController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($slug)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Type $type)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Type $type)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Type $type)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Type $type)
-    {
-        //
+        $type = Type::with('projects')->where('slug', $slug)->first();
+        if ($type) {
+            return response()->json([
+                'success' => true,
+                'result' => $type
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'result' => 'Page not found'
+            ]);
+        }
     }
 }
