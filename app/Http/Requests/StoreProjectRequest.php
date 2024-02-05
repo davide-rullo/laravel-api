@@ -12,7 +12,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::id() === 1;
+        return Auth::id() === 2;
     }
 
     /**
